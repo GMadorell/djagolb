@@ -5,6 +5,6 @@ from .models import BlogPostModel
 
 
 class BlogPostAdmin(admin.ModelAdmin):
-    pass
+    exclude = ("html_content", )
 
 admin.site.register(BlogPostModel, BlogPostAdmin)

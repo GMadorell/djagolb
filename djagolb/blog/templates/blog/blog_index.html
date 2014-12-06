@@ -3,6 +3,16 @@
 
 {% block left_content %}
     {% for blogpost in object_list %}
-        <p>{{ blogpost.title }}</p>
+        <h1>{{ blogpost.title }}</h1>
+        <i>{{ blogpost.posted_at }}</i>
+        <br>
+        <br>
+        {{ blogpost.html_content | safe }}
+        <br>
+        <div class="pull-right">
+            <a href="#" class="btn btn-default">More</a>
+        </div>
+        <br>
+        <hr>
     {% endfor %}
 {% endblock left_content %}
