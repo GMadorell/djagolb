@@ -6,11 +6,12 @@
         <h1>{{ blogpost.title }}</h1>
         <i>{{ blogpost.posted_at }}
             {% if blogpost.posted_at != blogpost.edited_at %}
-                - last edited at {{ blogpost.edited_at }}</i>
+                - last edited at {{ blogpost.edited_at }}
             {% endif %}
+        </i>
         <br>
         <br>
-        {{ blogpost.html_content | safe }}
+        {{ blogpost.html_content | safe | truncatewords:100 }}
         <br>
         <div class="pull-right">
             <a href="{% url "blog:blogpost" blogpost.slug %}" class="btn btn-default">More</a>
