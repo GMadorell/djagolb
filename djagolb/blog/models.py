@@ -6,7 +6,7 @@ class BlogPostModel(models.Model):
     posted_at = models.DateField(auto_now_add=True, auto_now=False)
     edited_at = models.DateField(auto_now=True)
 
-    slug = models.SlugField()
+    slug = models.SlugField(primary_key=True)
     md_content = models.TextField()
     html_content = models.TextField(default="", editable=False)
     title = models.CharField(max_length=240)

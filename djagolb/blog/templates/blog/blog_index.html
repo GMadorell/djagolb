@@ -4,13 +4,16 @@
 {% block left_content %}
     {% for blogpost in object_list %}
         <h1>{{ blogpost.title }}</h1>
-        <i>{{ blogpost.posted_at }}</i>
+        <i>{{ blogpost.posted_at }}
+            {% if blogpost.posted_at != blogpost.edited_at %}
+                - last edited at {{ blogpost.edited_at }}</i>
+            {% endif %}
         <br>
         <br>
         {{ blogpost.html_content | safe }}
         <br>
         <div class="pull-right">
-            <a href="#" class="btn btn-default">More</a>
+            <a href="{% url "blog:blogpost" blogpost.slug %}" class="btn btn-default">More</a>
         </div>
         <br>
         <hr>

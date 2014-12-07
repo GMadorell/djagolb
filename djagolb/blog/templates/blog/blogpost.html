@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+
+
+{% block left_content %}
+    <h1>{{ blogpost.title }}</h1>
+    <i>{{ blogpost.posted_at }}</i>
+    <br>
+    <br>
+    {{ blogpost.html_content | safe }}
+    <br>
+    <hr>
+{% endblock left_content %}
