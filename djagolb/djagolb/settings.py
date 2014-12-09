@@ -36,6 +36,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.sites",
+    'fluent_comments',
+    'crispy_forms',
+    'django.contrib.comments',
+
+
     "blog",
 )
 
@@ -85,3 +91,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+
+# Sites
+SITE_ID = 1
+
+# Comments
+COMMENTS_APP = "fluent_comments"

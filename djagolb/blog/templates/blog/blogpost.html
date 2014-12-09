@@ -1,14 +1,21 @@
 {% extends "blog/base.html" %}
-
+{% load comments %}
 
 {% block left_content %}
     <div class="text-center">
         <h1>{{ blogpost.title }}</h1>
-        <i>{{ blogpost.posted_at }}</i>
+        <i>{{ blogpost.posted_at }}
+        {% if blogpost.posted_at != blogpost.edited_at %}
+                - last edited at {{ blogpost.edited_at }}
+        {% endif %}
+        </i>
     </div>
     <br>
     <br>
     {{ blogpost.html_content | safe }}
     <br>
     <hr>
+    {% render_comment_list for blogpost %}
+
+    {% render_comment_form for blogpost %}
 {% endblock left_content %}
