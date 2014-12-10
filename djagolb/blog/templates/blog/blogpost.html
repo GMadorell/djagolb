@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load comments %}
+{% load disqus_tags %}
 
 {% block left_content %}
     <div class="text-center">
@@ -15,7 +15,9 @@
     {{ blogpost.html_content | safe }}
     <br>
     <hr>
-    {% render_comment_list for blogpost %}
 
-    {% render_comment_form for blogpost %}
+    {% url "blog:blogpost" blogpost.slug as blogpost_url %}
+    {% set_disqus_url "http://" site blogpost_url %}
+    {% disqus_show_comments %}
+
 {% endblock left_content %}

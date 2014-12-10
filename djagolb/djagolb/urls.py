@@ -4,5 +4,5 @@ from django.contrib import admin
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r"^", include("blog.urls", namespace="blog")),
-    url(r'^blog/comments/', include('fluent_comments.urls')),
+    url(r'^articles/comments/', include('django.contrib.comments.urls')),
 )

@@ -68,3 +68,4 @@ local_settings.py
 # sqlite
 db.sqlite*
 
+djagolb/djagolb/secret_settings.py

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+from .secret_settings import DISQUS_API_KEY
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -37,9 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django.contrib.sites",
-    'fluent_comments',
-    'crispy_forms',
-    'django.contrib.comments',
+    'disqus',
 
 
     "blog",
@@ -97,4 +97,6 @@ STATICFILES_DIRS = (
 SITE_ID = 1
 
 # Comments
-COMMENTS_APP = "fluent_comments"
+# COMMENTS_APP = "threadedcomments"
+DISQUS_API_KEY = DISQUS_API_KEY
+DISQUS_WEBSITE_SHORTNAME = 'djagolb'

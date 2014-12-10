@@ -1,5 +1,5 @@
 {% load static %}
-{% load comments %}
+{% load disqus_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -19,8 +19,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif] -->
 
-    {# Fluent comments css #}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fluent_comments/css/ajaxcomments.css" />
+    {% disqus_dev %}
 
     <title>Title of document</title>
 
@@ -67,8 +66,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
-    {# Fluent comments js #}
-    <script type="text/javascript" src="{{ STATIC_URL }}fluent_comments/js/ajaxcomments.js"></script>
 </body>
 
 </html>
