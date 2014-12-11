@@ -5,7 +5,7 @@
     <div class="text-center">
         <h1>{{ blogpost.title }}</h1>
         <i>{{ blogpost.posted_at }}
-        {% if blogpost.posted_at != blogpost.edited_at %}
+        {% if blogpost.is_edited %}
                 - last edited at {{ blogpost.edited_at }}
         {% endif %}
         </i>

@@ -1,9 +1,10 @@
+from datetime import timedelta
 from django.db import models
 import pypandoc
 
 
 class BlogPostModel(models.Model):
-    posted_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    posted_at = models.DateTimeField(auto_now_add=True)
     edited_at = models.DateTimeField(auto_now=True)
 
     slug = models.SlugField(primary_key=True)
@@ -18,3 +19,10 @@ class BlogPostModel(models.Model):
 
     def __unicode__(self):
         return self.slug
+
+    def is_edited(self):
+        timediff = self.edited_at - self.posted_at
+        return timediff > timedelta(seconds=1)
+
+
+
