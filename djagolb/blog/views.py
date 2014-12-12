@@ -42,8 +42,6 @@ class ArchiveView(generic.TemplateView):
             list(set(map(lambda posted_at: posted_at.year, posted_at_values))),
             reverse=True)
 
-        print years
-
         for year in years:
             year_dic = OrderedDict()
             posted_at_year = \

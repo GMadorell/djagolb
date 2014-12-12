@@ -98,6 +98,52 @@ class ArchiveViewTests(TestCase):
             expected_archive_contents))
 
         example_blogpost1.delete()
+        example_blogpost2.delete()
+
+    def test_archive_multiples_per_month_and_day(self):
+        example_blogpost1 = create_dummy_blogpost_posted_at_datetime(
+            "example", datetime(1990, 10, 20, 14, 20, 00)
+        )
+        example_blogpost2 = create_dummy_blogpost_posted_at_datetime(
+            "example2", datetime(2004, 8, 10, 12, 00, 10)
+        )
+        example_blogpost3 = create_dummy_blogpost_posted_at_datetime(
+            "example3", datetime(2004, 3, 18, 12, 00, 10)
+        )
+        example_blogpost4 = create_dummy_blogpost_posted_at_datetime(
+            "example4", datetime(2004, 3, 18, 13, 00, 10)
+        )
+        example_blogpost5 = create_dummy_blogpost_posted_at_datetime(
+            "example5", datetime(2004, 3, 21, 12, 00, 10)
+        )
+
+        resp = self.client.get(reverse("blog:archive"))
+        archive_dic = resp.context["archive"]
+        expected_archive_contents = \
+            ((2004,
+              (8,
+               (10, [example_blogpost2])
+              ),
+              (3,
+               (21, [example_blogpost5]),
+               (18, [example_blogpost4, example_blogpost3]),
+              )
+             ),
+             (1990,
+              (10,
+               (20, [example_blogpost1]),
+              ),
+             ),
+            )
+
+        self.assertEqual(archive_dic, self.expand_tuples_to_ordered_dic(
+            expected_archive_contents))
+
+        for blogpost in (
+                example_blogpost1, example_blogpost2, example_blogpost3,
+                example_blogpost4, example_blogpost5):
+            blogpost.delete()
+
 
     def expand_tuples_to_ordered_dic(self, tuples):
         """
