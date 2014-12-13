@@ -4,8 +4,8 @@ body {
 }
 
 .index-blogpost-title {
-    padding-top: 20px;
-    padding-bottom: 0px;
+    padding-top: 30px;
+    padding-bottom: 0;
     font-size: 28pt;
 }
 
@@ -19,4 +19,5 @@ body {
 
 .blogpost-content {
     font-size: 14pt;
+    padding-bottom: 10px;
 }

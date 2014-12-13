@@ -4,6 +4,16 @@ from django.db import models
 import pypandoc
 
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=50, primary_key=True)
+
+    def __unicode__(self):
+        return self.tag
+
+    def get_ordered_posts(self):
+        return self.blogpostmodel_set.order_by("-posted_at")
+
+
 class BlogPostModel(models.Model):
     posted_at = models.DateTimeField(auto_now_add=True)
     edited_at = models.DateTimeField(auto_now=True)
@@ -12,6 +22,8 @@ class BlogPostModel(models.Model):
     md_content = models.TextField()
     html_content = models.TextField(default="", editable=False)
     title = models.CharField(max_length=240)
+
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def save(self, *args, **kwargs):
         markdown = self.md_content

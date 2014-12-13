@@ -4,7 +4,7 @@ from django.contrib.sites.models import Site
 from django.views import generic
 from django.views.generic.base import ContextMixin
 
-from .models import BlogPostModel, Author
+from .models import BlogPostModel, Author, Tag
 
 
 class AuthorContextMixin(ContextMixin):
@@ -107,6 +107,16 @@ class AboutView(
     AuthorContextMixin,
 ):
     template_name = "blog/about.html"
+
+
+class TagView(
+    generic.ListView,
+    AuthorContextMixin,
+):
+    model = Tag
+    template_name = "blog/tags.html"
+    context_object_name = "tags"
+
 
     
 
