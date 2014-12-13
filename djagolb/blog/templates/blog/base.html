@@ -21,7 +21,9 @@
 
     {% disqus_dev %}
 
-    <title>Title of document</title>
+    <link href="{% static "css/author.css" %}" rel="stylesheet">
+
+    <title>Djagolb</title>
 
     <style>
     body {
@@ -48,11 +50,11 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     {% block left_content %}
                     {% endblock left_content %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     {% block right_content %}
                         {% include "blog/right_content.html" %}
                     {% endblock right_content %}

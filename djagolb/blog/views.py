@@ -2,11 +2,24 @@ from collections import OrderedDict, Iterable
 import pdb
 from django.contrib.sites.models import Site
 from django.views import generic
+from django.views.generic.base import ContextMixin
 
-from .models import BlogPostModel
+from .models import BlogPostModel, Author
 
 
-class BlogIndexView(generic.ListView):
+class AuthorContextMixin(ContextMixin):
+    author_model = Author
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorContextMixin, self).get_context_data(**kwargs)
+        context["author"] = self.author_model.objects.all()[0]
+        return context
+
+
+class BlogIndexView(
+    AuthorContextMixin,
+    generic.ListView
+):
     template_name = "blog/blog_index.html"
     model = BlogPostModel
 
@@ -14,7 +27,10 @@ class BlogIndexView(generic.ListView):
         return self.model.objects.order_by("-posted_at")
 
 
-class BlogPostDetail(generic.DetailView):
+class BlogPostDetail(
+    AuthorContextMixin,
+    generic.DetailView,
+):
     template_name = "blog/blogpost.html"
     context_object_name = "blogpost"
     model = BlogPostModel
@@ -25,7 +41,10 @@ class BlogPostDetail(generic.DetailView):
         return context
 
 
-class ArchiveView(generic.TemplateView):
+class ArchiveView(
+    AuthorContextMixin,
+    generic.TemplateView,
+):
     template_name = "blog/archive.html"
 
     def get_context_data(self, **kwargs):

@@ -1,1 +1,9 @@
-<p>I'm the right content block. Hai.</p>
+
+<div class="text-center">
+
+<img src="{{ author.picture }}" alt="Author picture" class="author-img img-circle center-block">
+<h3>{{ author.name }} {{ author.surname }}</h3>
+
+{{ author.summary_html | safe }}
+
+</div>
