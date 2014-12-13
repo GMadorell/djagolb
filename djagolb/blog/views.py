@@ -14,10 +14,18 @@ class AuthorContextMixin(ContextMixin):
         context = super(AuthorContextMixin, self).get_context_data(**kwargs)
         context["author"] = self.author_model.objects.all()[0]
         return context
+    
+    
+class SiteContextMixin(ContextMixin):
+    def get_context_data(self, **kwargs):
+        context = super(SiteContextMixin, self).get_context_data(**kwargs)
+        context["site"] = Site.objects.all()[0]
+        return context
 
 
 class BlogIndexView(
     AuthorContextMixin,
+    SiteContextMixin,
     generic.ListView
 ):
     template_name = "blog/blog_index.html"
@@ -29,16 +37,12 @@ class BlogIndexView(
 
 class BlogPostDetail(
     AuthorContextMixin,
+    SiteContextMixin,
     generic.DetailView,
 ):
     template_name = "blog/blogpost.html"
     context_object_name = "blogpost"
     model = BlogPostModel
-
-    def get_context_data(self, **kwargs):
-        context = super(BlogPostDetail, self).get_context_data(**kwargs)
-        context["site"] = Site.objects.get_current()
-        return context
 
 
 class ArchiveView(
@@ -96,6 +100,13 @@ class ArchiveView(
         context["archive"] = archive
         context["test"] = BlogPostModel.objects.all()
         return context
+
+
+class AboutView(
+    generic.TemplateView,
+    AuthorContextMixin,
+):
+    template_name = "blog/about.html"
 
     
 

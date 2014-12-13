@@ -1,22 +1,41 @@
 {% extends "blog/base.html" %}
 
+{% load disqus_tags %}
 
 {% block left_content %}
     {% for blogpost in object_list %}
-        <h1>{{ blogpost.title }}</h1>
-        <i>{{ blogpost.posted_at }}
+        <div class="index-blogpost-title">
+            <a href="{% url "blog:blogpost" blogpost.slug %}">{{ blogpost.title }}</a>
+        </div>
+        <hr>
+
+        <i>Posted on: {{ blogpost.posted_at }}
             {% if blogpost.is_edited %}
-                - last edited at {{ blogpost.edited_at }}
+                - last edited on {{ blogpost.edited_at }}
             {% endif %}
         </i>
-        <br>
-        <br>
-        {{ blogpost.html_content | safe | truncatewords:100 }}
-        <br>
-        <div class="pull-right">
-            <a href="{% url "blog:blogpost" blogpost.slug %}" class="btn btn-default">More</a>
-        </div>
-        <br>
+        &nbsp;&nbsp;&nbsp;
+        Comments:
+        <span class="badge">
+            <span class="disqus-comment-count" data-disqus-identifier="{{ blogpost.slug }}">
+                First article
+            </span>
+        </span>
+        {% disqus_num_replies %}
+
         <hr>
+
+        <div class="blogpost-content">
+            {{ blogpost.html_content | safe | truncatewords:100 }}
+        </div>
+
+        <br>
+
+        <div class="pull-left">
+            <a href="{% url "blog:blogpost" blogpost.slug %}" class="btn btn-default">Read more</a>
+        </div>
+
+        <br>
+        <br>
     {% endfor %}
 {% endblock left_content %}

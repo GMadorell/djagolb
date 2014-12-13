@@ -22,6 +22,7 @@
     {% disqus_dev %}
 
     <link href="{% static "css/author.css" %}" rel="stylesheet">
+    <link href="{% static "css/typography.css" %}" rel="stylesheet">
 
     <title>Djagolb</title>
 
@@ -48,6 +49,7 @@
             {% include "blog/jumbotron.html" %}
         {% endblock jumbotron %}
 
+        {% block content %}
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
@@ -61,6 +63,7 @@
                 </div>
             </div>
         </div>
+        {% endblock content %}
 
     </div> <!-- end main container -->
 

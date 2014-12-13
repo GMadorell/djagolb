@@ -1,0 +1,22 @@
+
+body {
+    font-size: 12pt;
+}
+
+.index-blogpost-title {
+    padding-top: 20px;
+    padding-bottom: 0px;
+    font-size: 28pt;
+}
+
+.index-blogpost-title a {
+    color: black;
+}
+
+.blogpost-detail-title {
+    font-size: 30pt;
+}
+
+.blogpost-content {
+    font-size: 14pt;
+}

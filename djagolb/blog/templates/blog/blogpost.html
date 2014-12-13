@@ -3,21 +3,29 @@
 
 {% block left_content %}
     <div class="text-center">
-        <h1>{{ blogpost.title }}</h1>
+        <div class="blogpost-detail-title">
+            {{ blogpost.title }}
+        </div>
+
         <i>{{ blogpost.posted_at }}
         {% if blogpost.is_edited %}
-                - last edited at {{ blogpost.edited_at }}
+                - last edited on {{ blogpost.edited_at }}
         {% endif %}
         </i>
     </div>
     <br>
     <br>
-    {{ blogpost.html_content | safe }}
+
+    <div class="blogpost-content">
+        {{ blogpost.html_content | safe }}
+    </div>
     <br>
     <hr>
 
     {% url "blog:blogpost" blogpost.slug as blogpost_url %}
+    {% set_disqus_title blogpost.title %}
     {% set_disqus_url "http://" site blogpost_url %}
+    {% set_disqus_identifier blogpost.slug %}
     {% disqus_show_comments %}
 
 {% endblock left_content %}
