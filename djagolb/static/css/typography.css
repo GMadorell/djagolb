@@ -21,3 +21,16 @@ body {
     font-size: 14pt;
     padding-bottom: 10px;
 }
+
+.blog-pagination {
+    font-size: 16pt;
+    padding-bottom: 100px;
+}
+
+.blog-pagination .btn {
+    margin-right: 15px;
+}
+
+.blog-pagination .pagination-glyph {
+    padding-right: 10px;
+}

@@ -1,6 +1,7 @@
 from collections import OrderedDict, Iterable
 import pdb
 from django.contrib.sites.models import Site
+from django.http import Http404
 from django.views import generic
 from django.views.generic.base import ContextMixin
 
@@ -14,8 +15,8 @@ class AuthorContextMixin(ContextMixin):
         context = super(AuthorContextMixin, self).get_context_data(**kwargs)
         context["author"] = self.author_model.objects.all()[0]
         return context
-    
-    
+
+
 class SiteContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(SiteContextMixin, self).get_context_data(**kwargs)
@@ -31,8 +32,39 @@ class BlogIndexView(
     template_name = "blog/blog_index.html"
     model = BlogPostModel
 
+    POSTS_PER_PAGE = 3
+
     def get_queryset(self):
-        return self.model.objects.order_by("-posted_at")
+        self.validate_correct_page()
+        return self.model.objects.order_by("-posted_at")[
+            self.get_starting_index():self.get_ending_index()]
+
+    def get_context_data(self, **kwargs):
+        self.validate_correct_page()
+        context = super(BlogIndexView, self).get_context_data(**kwargs)
+        context["has_older_posts"] = \
+            self.get_ending_index() < self.get_amount_posts()
+        context["has_newer_posts"] = self.get_starting_index() > 0
+        context["page"] = self.kwargs.get("page")
+        return context
+
+    def validate_correct_page(self):
+        if self.get_page() < 1:
+            raise Http404
+        if self.get_starting_index() > self.get_amount_posts():
+            raise Http404
+
+    def get_page(self):
+        return int(self.kwargs.get("page"))
+
+    def get_amount_posts(self):
+        return self.model.objects.count()
+
+    def get_starting_index(self):
+        return (self.get_page() - 1) * self.POSTS_PER_PAGE
+
+    def get_ending_index(self):
+        return self.get_starting_index() + self.POSTS_PER_PAGE
 
 
 class BlogPostDetail(

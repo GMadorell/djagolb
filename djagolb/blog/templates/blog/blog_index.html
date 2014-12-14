@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 
 {% load disqus_tags %}
+{% load mathfilters %}
 
 {% block left_content %}
     {% for blogpost in object_list %}
@@ -18,7 +19,7 @@
         Comments:
         <span class="badge">
             <span class="disqus-comment-count" data-disqus-identifier="{{ blogpost.slug }}">
-                First article
+                Zero
             </span>
         </span>
         {% disqus_num_replies %}
@@ -46,4 +47,21 @@
         <br>
         <br>
     {% endfor %}
+
+    <hr>
+    <hr>
+    <div class="col-md-12 text-center blog-pagination">
+        {% if has_newer_posts %}
+            <a href="{% url "blog:blog_index_page" page|sub:"1" %}" class="btn btn-primary btn-lg" role="button">
+                <span class="glyphicon glyphicon-arrow-left pagination-glyph"></span>Newer Posts
+            </a>
+        {% endif %}
+
+        {% if has_older_posts %}
+            <a href="{% url "blog:blog_index_page" page|add:"1" %}" class="btn btn-primary btn-lg" role="button">
+                <span class="glyphicon glyphicon-arrow-right pagination-glyph"></span>Older Posts
+            </a>
+        {% endif %}
+    </div>
+
 {% endblock left_content %}
