@@ -89,15 +89,37 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")  # Only in production.
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    ASSETS_DIR,
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+# Compressor - Sass
+STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
+COMPRESS_ROOT = ASSETS_DIR
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-sass', 'sass --compass "{infile}" "{outfile}"'),
+    ('text/x-scss', 'sass --scss --compass "{infile}" "{outfile}"'),
+)
+
+COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = True
+
+# Compass
+COMPASS_INPUT = os.path.join(ASSETS_DIR, "sass")
+COMPASS_OUTPUT = os.path.join(ASSETS_DIR, "css")
+COMPASS_STYLE = "compact"
 
 # Sites
 SITE_ID = 1
 
 # Comments
-# COMMENTS_APP = "threadedcomments"
 DISQUS_API_KEY = DISQUS_API_KEY
 DISQUS_WEBSITE_SHORTNAME = 'djagolb'
