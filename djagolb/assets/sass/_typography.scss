@@ -38,13 +38,15 @@ body {
 }
 
 .blog-pagination {
-  font-size: 16pt;
+  font-size: 20pt;
   padding-bottom: 100px;
+  padding-top: 10px;
 
-  .btn {
-    margin-right: 15px;
-  }
-  .pagination-glyph {
+  .pagination-newer {
     padding-right: 10px;
+  }
+
+  .pagination-older {
+    padding-left: 10px;
   }
 }

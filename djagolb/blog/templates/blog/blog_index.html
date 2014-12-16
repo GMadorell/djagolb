@@ -40,26 +40,26 @@
             <a href="{% url "blog:blogpost" blogpost.slug %}" class="btn btn-default">Read more</a>
         </div>
 
-
-
         <br>
         <br>
     {% endfor %}
 
     <hr>
     <hr>
-    <div class="col-md-12 text-center blog-pagination">
-        {% if has_newer_posts %}
-            <a href="{% url "blog:blog_index_page" page|sub:"1" %}" class="btn btn-primary btn-lg" role="button">
-                <span class="glyphicon glyphicon-arrow-left pagination-glyph"></span>Newer Posts
-            </a>
-        {% endif %}
+    <nav class="col-12 blog-pagination text-center">
+        <ul class="pager">
+            {% if has_newer_posts %}
+                <li class="pagination-newer"><a href="{% url "blog:blog_index_page" page|sub:"1" %}"><span aria-hidden="true">&larr;</span> Newer Posts</a></li>
+            {% else %}
+                <li class="pagination-newer disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer Posts</a></li>
+            {% endif %}
 
-        {% if has_older_posts %}
-            <a href="{% url "blog:blog_index_page" page|add:"1" %}" class="btn btn-primary btn-lg" role="button">
-                <span class="glyphicon glyphicon-arrow-right pagination-glyph"></span>Older Posts
-            </a>
-        {% endif %}
-    </div>
+            {% if has_older_posts %}
+                <li class="pagination-older"><a href="{% url "blog:blog_index_page" page|add:"1" %}">Older Posts <span aria-hidden="true">&rarr;</span></a></li>
+            {% else %}
+                <li class="pagination-older disabled"><a href="#">Older Posts <span aria-hidden="true">&rarr;</span></a></li>
+            {% endif %}
+      </ul>
+    </nav>
 
 {% endblock left_content %}

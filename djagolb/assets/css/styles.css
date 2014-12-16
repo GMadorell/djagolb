@@ -8715,14 +8715,15 @@ body {
 
 /* line 40, ../sass/_typography.scss */
 .blog-pagination {
-  font-size: 16pt;
+  font-size: 20pt;
   padding-bottom: 100px;
+  padding-top: 10px;
 }
-/* line 44, ../sass/_typography.scss */
-.blog-pagination .btn {
-  margin-right: 15px;
-}
-/* line 47, ../sass/_typography.scss */
-.blog-pagination .pagination-glyph {
+/* line 45, ../sass/_typography.scss */
+.blog-pagination .pagination-newer {
   padding-right: 10px;
+}
+/* line 49, ../sass/_typography.scss */
+.blog-pagination .pagination-older {
+  padding-left: 10px;
 }
