@@ -1,5 +1,10 @@
+//bootstrap things
 @import "bootstrap-compass";
 @import "bootstrap-sprockets";
 @import "bootstrap-variables";
 @import "bootstrap";
+@import "bootstrap/theme";
 @import "bootstrap/glyphicons";
+
+//own scss (so we can use screen variables, etc)
+@import "typography";
