@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from .syndication import BlogRssFeed, BlogAtomFeed
 from .views import BlogIndexView, BlogPostDetail, ArchiveView, AboutView, \
     TagView
 
@@ -8,5 +9,8 @@ urlpatterns = patterns('',
     url(r"^post/(?P<slug>.*?)/$", BlogPostDetail.as_view(), name="blogpost"),
     url(r"^archive/$", ArchiveView.as_view(), name="archive"),
     url(r"about/$", AboutView.as_view(), name="about"),
-    url(r"tags/$", TagView.as_view(), name="tags")
+    url(r"tags/$", TagView.as_view(), name="tags"),
+
+    url(r"^rss/$", BlogRssFeed(), name="rss_feed"),
+    url(r"^atom/$", BlogAtomFeed(), name="atom_feed"),
 )
