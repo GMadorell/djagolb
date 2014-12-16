@@ -370,8 +370,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?1418679447);
-  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?&1418679447#iefix) format("embedded-opentype"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff?1418679447) format("woff"), url(/fonts/bootstrap/glyphicons-halflings-regular.ttf?1418679447) format("truetype"), url(/fonts/bootstrap/glyphicons-halflings-regular.svg?1418679447#glyphicons_halflingsregular) format("svg");
+  src: url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.eot"));
+  src: url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix")) format("embedded-opentype"), url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.woff")) format("woff"), url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.ttf")) format("truetype"), url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular")) format("svg");
 }
 /* line 21, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_glyphicons.scss */
 .glyphicon {

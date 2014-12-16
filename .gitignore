@@ -69,3 +69,4 @@ local_settings.py
 db.sqlite*
 
 djagolb/djagolb/secret_settings.py
+djagolb/assets/.sass-cache/
