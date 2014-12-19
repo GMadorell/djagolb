@@ -24,7 +24,7 @@
 
     {% url "blog:blogpost" blogpost.slug as blogpost_url %}
     {% set_disqus_title blogpost.title %}
-    {% set_disqus_url "http://" site blogpost_url %}
+    {% set_disqus_url "http://" site.domain blogpost_url %}
     {% set_disqus_identifier blogpost.slug %}
     {% disqus_show_comments %}
 

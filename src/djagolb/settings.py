@@ -14,6 +14,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 from .secret_settings import DISQUS_API_KEY
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -123,3 +125,7 @@ SITE_ID = 1
 # Comments
 DISQUS_API_KEY = DISQUS_API_KEY
 DISQUS_WEBSITE_SHORTNAME = 'djagolb'
+
+
+# Templates
+TEMPLATE_CONTEXT_PROCESSORS += ("django.core.context_processors.request",)

@@ -70,6 +70,9 @@ db.sqlite*
 
 # Buildout
 bin/
+## Mr Developer
+.mr.developer.cfg
+repos/
 
 # Project things
 src/djagolb/secret_settings.py
