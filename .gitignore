@@ -68,5 +68,9 @@ local_settings.py
 # sqlite
 db.sqlite*
 
-djagolb/djagolb/secret_settings.py
-djagolb/assets/.sass-cache/
+# Buildout
+bin/
+
+# Project things
+src/djagolb/secret_settings.py
+src/assets/.sass-cache/
