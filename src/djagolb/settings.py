@@ -10,11 +10,23 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from encryptedfiles.encryptedjson import EncryptedJson
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-from .secret_settings import DISQUS_API_KEY
-
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+
+
+
+BASE_CONFIG = os.path.join(os.path.dirname(__file__), "config")
+CONFIG_DIRNAME = os.path.join(BASE_CONFIG, "plain")
+ENCRYPTED_DIRNAME = os.path.join(BASE_CONFIG, "encrypted")
+KEYS_DIR = os.path.join(BASE_CONFIG, "keys")
+
+enc_path = lambda enc_filename: os.path.join(ENCRYPTED_DIRNAME, enc_filename)
+get_key = lambda: open(os.path.join(KEYS_DIR, "cfg_key.key")).read()
+
+sec_settings = EncryptedJson(enc_path("secret_settings.json"), get_key())
 
 
 # Quick-start development settings - unsuitable for production
@@ -123,7 +135,7 @@ COMPASS_STYLE = "compact"
 SITE_ID = 1
 
 # Comments
-DISQUS_API_KEY = DISQUS_API_KEY
+DISQUS_API_KEY = sec_settings["DISQUS_API_KEY"]
 DISQUS_WEBSITE_SHORTNAME = 'djagolb'
 
 
