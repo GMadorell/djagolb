@@ -77,5 +77,3 @@ repos/
 # Project things
 src/djagolb/secret_settings.py
 src/assets/.sass-cache/
-src/djagolb/config/keys/
-src/djagolb/config/plain/

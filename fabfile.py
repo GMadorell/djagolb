@@ -14,6 +14,8 @@ CONFIG_DIRNAME = os.path.join(BASE_CONFIG, "plain")
 ENCRYPTED_DIRNAME = os.path.join(BASE_CONFIG, "encrypted")
 KEYS_DIR = os.path.join(BASE_CONFIG, "keys")
 
+GUNICORN_CFG_PATH = os.path.join(".server_config", "gunicorn")
+
 
 @task
 def encrypt_config():
@@ -34,9 +36,9 @@ def get_key():
 @task
 def start():
     # Stop gunicorn if it's running
-    if os.path.isfile(os.path.join("gunicorn", "instance.pid")):
+    if os.path.isfile(os.path.join(GUNICORN_CFG_PATH, "instance.pid")):
         local("bin/gunicornctl stop")
-    remove_if_exists(os.path.join("gunicorn", "gunicorn.sock"))
+    remove_if_exists(os.path.join(GUNICORN_CFG_PATH, "gunicorn.sock"))
 
     if not is_nginx_running():
         print(yellow("Trying to restart Nginx before continuing."))
