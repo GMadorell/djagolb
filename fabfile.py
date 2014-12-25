@@ -30,6 +30,8 @@ def localhost():
 def target(instance_name, user="ec2-user"):
     """
     Sets the fab environment to the given instance_name.
+    This instance_name has to be the tag "Name" of the ec2 instance
+    we want to control.
     Used like: fab target:django1 *some_other_command*.
     """
     conn = connect_ec2()
