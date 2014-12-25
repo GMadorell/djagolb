@@ -33,4 +33,4 @@ run sudo service nginx restart
 
 expose 80
 workdir /webapps/djagolb/
-cmd bin/fab start
+cmd bin/python .server_config/entry_point.py
