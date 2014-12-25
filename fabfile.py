@@ -50,6 +50,11 @@ def connect_ec2():
             aws_secret_access_key=aws_cfg["aws_secret_access_key"])
 
 @task
+def deploy_run(fresh=True):
+    deploy(fresh)
+    run_container()
+
+@task
 def deploy(fresh=True):
     if fresh:
         env.run("sudo yum install git")
@@ -58,9 +63,21 @@ def deploy(fresh=True):
     env.run("git clone https://github.com/Skabed/djagolb djagolb")
     with cd("djagolb"):
         env.run("mkdir -p src/djagolb/config/keys")
-        put("src/djagolb/config/keys", "src/djagolb/config/keys")
+        put("src/djagolb/config/keys/*", "src/djagolb/config/keys/")
         env.run("sudo docker build -t djagolb_appserver_deploy .")
-        env.run("sudo docker run -p 80:80 djagolb_appserver_deploy")
+    print(green("Succesfully deployed the djagolb appserver. "
+                "Feel free to run 'fab run_container' ;)."))
+
+@task
+def run_container():
+    docker_ps = env.run("sudo docker ps -a")
+    if "djagolb_appserver_running" in docker_ps:
+        env.run("sudo docker rm -f djagolb_appserver_running")
+    env.run("sudo docker run --name djagolb_appserver_running -p 80:80 djagolb_appserver_deploy")
+
+@task
+def stop_container():
+    env.run("sudo docker stop djagolb_appserver_running")
 
 
 ####
