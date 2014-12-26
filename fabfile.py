@@ -97,6 +97,8 @@ def encrypt_config():
                      if os.path.isfile(os.path.join(CONFIG_DIRNAME, f))]
 
     for filename in cfg_filenames:
+        if ".gitignore" in filename:
+            continue
         with open(os.path.join(CONFIG_DIRNAME, filename), "r") as cfg_file:
             enc_file = EncryptedFile(os.path.join(ENCRYPTED_DIRNAME, filename),
                                      get_key())
