@@ -24,7 +24,7 @@ enc_path = lambda enc_filename: os.path.join(ENCRYPTED_DIRNAME, enc_filename)
 get_key = lambda: open(os.path.join(KEYS_DIR, "cfg_key.key")).read()
 
 def setup_encrypted_settings(settings_name):
-    print("Trying to import {}.".format(settings_name))
+    print("Trying to import {} settings.".format(settings_name))
     settings_py_name = "{}.py".format(settings_name)
     settings_tmp_path = os.path.join(BASE_PROJECT, settings_py_name)
     with open(settings_tmp_path, "w") as settings_tmp:
@@ -39,12 +39,18 @@ try:
 finally:
     os.remove(tmp_path)
 
-
-tmp_path = setup_encrypted_settings("development")
-try:
-    from .development import *
-finally:
-    os.remove(tmp_path)
+if os.environ.get("DJANGO_PRODUCTION", False):
+    tmp_path = setup_encrypted_settings("production")
+    try:
+        from .production import *
+    finally:
+        os.remove(tmp_path)
+else:
+    tmp_path = setup_encrypted_settings("development")
+    try:
+        from .development import *
+    finally:
+        os.remove(tmp_path)
 
 
 
