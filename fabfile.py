@@ -1,5 +1,8 @@
 from __future__ import print_function
 import os
+import sys
+import time
+
 from encryptedfiles.encryptedfile import EncryptedFile
 from encryptedfiles.encryptedjson import EncryptedJson
 
@@ -12,6 +15,7 @@ import subprocess
 
 import boto
 import boto.ec2
+import boto.rds
 
 from config import Config
 
@@ -133,6 +137,52 @@ def run_db_container():
 @task
 def stop_db_container():
     env.run("sudo docker stop djagolb_db_running")
+
+
+
+####
+## AMAZON RDS
+####
+
+@task
+def create_rds_instance(database_id,
+    allocated_storage=5, 
+    instance_class="db.t2.micro"):
+    db_settings = get_enc_json("prod_db.json")
+    conn = connect_rds()
+    db = conn.create_dbinstance(
+        id=database_id,
+        allocated_storage=allocated_storage,
+        instance_class=instance_class,
+        master_username=db_settings["database"]["USER"],
+        master_password=db_settings["database"]["PASSWORD"],
+        db_name=db_settings["database"]["NAME"],
+        engine="postgres",
+        port=5432,
+    )
+
+    print("Waiting for db to be available:", end="")
+    time_waited = 0
+    while db.status.lower().strip() != "available":
+        time.sleep(1)
+        time_waited += 1
+        print(".", end="")
+        if time_waited % 30 == 0:
+            print("\nDB status: {} (waited for {} seconds)."\
+                  .format(db.status.lower(), time_waited), end="") 
+        sys.stdout.flush()
+        db.update()
+
+    print(green("\nSuccessfully created db instance."))
+    print(green("DB Endpoint: {}".format(db.endpoint)))
+    print(yellow("Remember to manually set the security group."))
+
+def connect_rds():
+    conn = boto.rds.connect_to_region(
+            aws_cfg["region"],
+            aws_access_key_id=aws_cfg["aws_access_key_id"],
+            aws_secret_access_key=aws_cfg["aws_secret_access_key"])
+    return conn
 
 
 ####
